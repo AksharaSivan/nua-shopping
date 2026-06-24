@@ -1,0 +1,435 @@
+@use '../../styles/variables' as *;
+
+// ─── Page Layout ─────────────────────────────────────────────
+.page {
+  padding-top: 2rem;
+  padding-bottom: 6rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $text-secondary;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 2.5rem;
+  padding: 0.5rem 1rem 0.5rem 0.75rem;
+  border-radius: 30px;
+  border: 1px solid $border-subtle;
+  transition: all $transition-base;
+
+  &:hover {
+    color: $primary;
+    border-color: $border-glow;
+    background: rgba(139, 92, 246, 0.06);
+    transform: translateX(-3px);
+  }
+}
+
+.detailLayout {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 4rem;
+  align-items: start;
+
+  @include tablet { gap: 2.5rem; }
+  @include mobile { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+// ─── Gallery ─────────────────────────────────────────────────
+.galleryCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: sticky;
+  top: 88px;
+
+  @include mobile { position: static; }
+}
+
+.mainImageCard {
+  background: $bg-elevated;
+  border-radius: 24px;
+  border: 1px solid $border-card;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  box-shadow: $shadow-lg;
+  transition: box-shadow $transition-base;
+
+  &:hover { box-shadow: $glow-card-hover; }
+}
+
+.mainImageWrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mainImage {
+  max-width: 78%;
+  max-height: 78%;
+  object-fit: contain;
+  transition: transform $transition-slow, filter $transition-base;
+}
+
+.saleBadge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: $gradient-brand-vivid;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.7rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: $glow-accent;
+  z-index: 2;
+}
+
+.thumbnailsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+
+  @include mobile {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar { height: 3px; }
+    &::-webkit-scrollbar-thumb { background: $primary-glow; border-radius: 2px; }
+  }
+}
+
+.thumbnailBtn {
+  background: $bg-elevated;
+  border: 1px solid $border-card;
+  border-radius: 14px;
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  @include mobile { flex: 0 0 90px; scroll-snap-align: start; }
+
+  &:hover {
+    border-color: $primary;
+    transform: translateY(-2px);
+    background: $bg-float;
+  }
+
+  &.activeThumbnail {
+    border-color: $primary-vivid;
+    background: rgba(139, 92, 246, 0.08);
+    box-shadow: 0 0 0 1px $primary-vivid, $glow-primary;
+    .thumbnailLabel { color: $primary; font-weight: 700; }
+  }
+}
+
+.thumbnailWrapper {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.thumbnailImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: filter $transition-base;
+}
+
+.thumbnailLabel {
+  font-size: 0.7rem;
+  color: $text-secondary;
+  font-weight: 500;
+  text-align: center;
+}
+
+// ─── Info Column ─────────────────────────────────────────────
+.infoCol { display: flex; flex-direction: column; }
+
+.brandRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.brandName {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  @include gradient-text;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.15);
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+}
+
+.starIcon {
+  color: #fbbf24;
+  fill: #fbbf24;
+  width: 14px;
+  height: 14px;
+}
+
+.ratingVal {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.ratingCount {
+  font-size: 0.75rem;
+  color: $text-muted;
+}
+
+.title {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 800;
+  color: $text-primary;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.originalPrice {
+  font-size: 1.1rem;
+  text-decoration: line-through;
+  color: $text-muted;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 900;
+  @include gradient-text;
+}
+
+.description {
+  font-size: 0.925rem;
+  line-height: 1.7;
+  color: $text-secondary;
+  margin-bottom: 1.5rem;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid $border-subtle;
+  margin: 1.5rem 0;
+}
+
+// ─── Purchase Controls ───────────────────────────────────────
+.purchaseControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.qtySection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.qtyLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  color: $text-secondary;
+}
+
+.qtyPicker {
+  display: flex;
+  align-items: center;
+  background: $bg-float;
+  border: 1px solid $border-card;
+  border-radius: 14px;
+  padding: 0.2rem;
+}
+
+.qtyBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-secondary;
+  transition: all $transition-fast;
+
+  &:hover:not(:disabled) {
+    background: rgba(139, 92, 246, 0.12);
+    color: $primary;
+  }
+
+  &:disabled { color: $text-muted; opacity: 0.4; cursor: not-allowed; }
+}
+
+.qtyVal {
+  font-size: 0.9rem;
+  font-weight: 700;
+  width: 36px;
+  text-align: center;
+  color: $text-primary;
+}
+
+.stockNotice { font-size: 0.85rem; font-weight: 600; }
+
+.noticeText {
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.soldOutText  { background: $stock-soldout-bg; color: $stock-soldout; border: 1px solid rgba(248,113,113,0.2); }
+.lowStockText { background: $stock-low-bg; color: $stock-low; border: 1px solid rgba(251,191,36,0.2); }
+.availableText { background: $stock-available-bg; color: $stock-available; border: 1px solid rgba(52,211,153,0.2); }
+
+// ─── Add to Cart CTA ─────────────────────────────────────────
+.actionsRow { margin-bottom: 1.75rem; }
+
+.addBtn {
+  width: 100%;
+  background: $gradient-brand-vivid;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 1.05rem;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-shadow: $glow-button;
+  transition: all $transition-spring;
+  letter-spacing: 0.25px;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.55), 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  &:active:not(:disabled) { transform: translateY(-1px); }
+
+  &:disabled {
+    background: $bg-float;
+    color: $text-muted;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.spinner { animation: rotateSpinner 0.8s linear infinite; }
+
+// ─── Perks ───────────────────────────────────────────────────
+.perks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: $bg-elevated;
+  border: 1px solid $border-card;
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.perkItem {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+
+  svg { color: $primary; flex-shrink: 0; margin-top: 1px; }
+
+  h5 {
+    font-size: 0.825rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin-bottom: 0.2rem;
+  }
+
+  p { font-size: 0.775rem; color: $text-secondary; line-height: 1.4; }
+}
+
+// ─── Loading / Error States ──────────────────────────────────
+.loadingWrapper, .errorWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+  text-align: center;
+}
+
+.spinner.large { width: 40px; height: 40px; animation: rotateSpinner 0.9s linear infinite; }
+
+.errorCard {
+  padding: 3rem 2rem;
+  background: $bg-elevated;
+  border: 1px solid rgba(248, 113, 113, 0.15);
+  border-radius: 20px;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+
+  h2 { color: $text-primary; font-size: 1.4rem; font-weight: 700; }
+  p  { color: $text-secondary; font-size: 0.9rem; }
+}
+
+.backHomeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: $gradient-brand-vivid;
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  box-shadow: $glow-button;
+  transition: all $transition-base;
+
+  &:hover { transform: translateY(-2px); }
+}

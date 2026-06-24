@@ -1,0 +1,137 @@
+@use '../../styles/variables' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  background: rgba(8, 11, 20, 0.75);
+  backdrop-filter: $blur-glass;
+  -webkit-backdrop-filter: $blur-glass;
+  border-bottom: 1px solid $border-subtle;
+  transition: background $transition-base, border-color $transition-base;
+
+  // Subtle gradient line at bottom
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $primary-glow, $accent-glow, transparent);
+    opacity: 0.6;
+  }
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  font-family: $font-display;
+}
+
+.logoGradient {
+  @include gradient-text;
+}
+
+.logoText {
+  color: $text-primary;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+
+  @include mobile { display: none; }
+}
+
+.navLink {
+  color: $text-secondary;
+  font-weight: 500;
+  font-size: 0.9rem;
+  position: relative;
+  padding: 0.3rem 0;
+  transition: color $transition-fast;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: $gradient-brand;
+    border-radius: 2px;
+    transition: width $transition-base;
+  }
+
+  &:hover {
+    color: $text-primary;
+    &::after { width: 100%; }
+  }
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cartBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-secondary;
+  background: $bg-elevated;
+  border: 1px solid $border-card;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  transition: all $transition-base;
+
+  &:hover {
+    color: $primary;
+    background: rgba(139, 92, 246, 0.12);
+    border-color: $border-glow;
+    transform: translateY(-2px);
+    box-shadow: $glow-primary;
+  }
+
+  &:active { transform: translateY(0); }
+
+  &.bounce { animation: pulse 0.35s $ease-spring; }
+}
+
+.cartBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: $gradient-brand-vivid;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $bg-base;
+  box-shadow: $glow-accent;
+  letter-spacing: 0;
+}

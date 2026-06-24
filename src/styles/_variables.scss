@@ -1,0 +1,150 @@
+// ============================================================
+// DESIGN SYSTEM — LUXURY DARK THEME
+// ============================================================
+
+// --- Brand Colors ---
+$primary: #a78bfa;          // Soft Electric Violet
+$primary-vivid: #8b5cf6;    // Core Violet
+$primary-dark: #7c3aed;     // Deep Violet
+$primary-glow: rgba(139, 92, 246, 0.35);
+
+$accent: #f472b6;           // Electric Pink
+$accent-vivid: #ec4899;
+$accent-dark: #db2777;
+$accent-glow: rgba(244, 114, 182, 0.3);
+
+// --- Surface Colors (Dark) ---
+$bg-base: #080b14;          // Near-Black Ink
+$bg-surface: #0f1320;       // Dark Card surface
+$bg-elevated: #161c2e;      // Elevated panels / cards
+$bg-float: #1e2640;         // Floating elements
+
+// --- Border ---
+$border-subtle: rgba(255, 255, 255, 0.06);
+$border-glow: rgba(139, 92, 246, 0.3);
+$border-card: rgba(255, 255, 255, 0.08);
+
+// --- Text ---
+$text-primary: #f1f5f9;
+$text-secondary: #94a3b8;
+$text-muted: #475569;
+$text-white: #ffffff;
+
+// --- Stock States ---
+$stock-available: #34d399;
+$stock-available-bg: rgba(52, 211, 153, 0.1);
+$stock-low: #fbbf24;
+$stock-low-bg: rgba(251, 191, 36, 0.1);
+$stock-soldout: #f87171;
+$stock-soldout-bg: rgba(248, 113, 113, 0.1);
+
+// --- Gradients ---
+$gradient-brand: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+$gradient-brand-vivid: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+$gradient-dark-card: linear-gradient(145deg, rgba(30, 38, 64, 0.9) 0%, rgba(15, 19, 32, 0.95) 100%);
+$gradient-hero: linear-gradient(135deg, #0f1320 0%, #1a1040 50%, #0f1320 100%);
+$gradient-shimmer: linear-gradient(90deg, #1e2640 25%, #283050 37%, #1e2640 63%);
+
+// --- Glows & Shadows ---
+$glow-primary: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 40px rgba(139, 92, 246, 0.05);
+$glow-accent: 0 0 20px rgba(244, 114, 182, 0.15);
+$glow-button: 0 4px 24px rgba(139, 92, 246, 0.5), 0 1px 4px rgba(139, 92, 246, 0.3);
+$glow-card-hover: 0 20px 60px rgba(139, 92, 246, 0.12), 0 4px 20px rgba(0, 0, 0, 0.4);
+
+$shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+$shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+$shadow-card: 0 8px 32px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.2);
+$shadow-premium: $glow-card-hover;
+$drawer-shadow: -12px 0 50px rgba(0, 0, 0, 0.5), -4px 0 16px rgba(139, 92, 246, 0.08);
+
+// --- Blur ---
+$blur-glass: blur(20px);
+$blur-light: blur(8px);
+
+// --- Breakpoints ---
+$mobile: 767px;
+$tablet: 1024px;
+
+// --- Transitions ---
+$ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+$transition-fast: 0.15s $ease-out;
+$transition-base: 0.25s $ease-out;
+$transition-slow: 0.4s $ease-out;
+$transition-spring: 0.35s $ease-spring;
+
+// --- Typography ---
+$font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-display: 'Plus Jakarta Sans', sans-serif;
+
+// ============================================================
+// MIXINS
+// ============================================================
+
+@mixin mobile {
+  @media (max-width: #{$mobile}) { @content; }
+}
+@mixin tablet {
+  @media (max-width: #{$tablet}) { @content; }
+}
+@mixin desktop {
+  @media (min-width: #{$mobile + 1px}) { @content; }
+}
+
+@mixin glass-dark {
+  background: rgba(15, 19, 32, 0.7);
+  backdrop-filter: $blur-glass;
+  -webkit-backdrop-filter: $blur-glass;
+  border: 1px solid $border-card;
+}
+
+@mixin gradient-text {
+  background: $gradient-brand;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ============================================================
+// KEYFRAMES
+// ============================================================
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.12); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(139, 92, 246, 0.2); }
+  50%       { box-shadow: 0 0 25px rgba(139, 92, 246, 0.5), 0 0 50px rgba(139, 92, 246, 0.15); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes rotateSpinner {
+  to { transform: rotate(360deg); }
+}

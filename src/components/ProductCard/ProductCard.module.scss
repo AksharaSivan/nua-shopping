@@ -1,0 +1,191 @@
+@use '../../styles/variables' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: $bg-elevated;
+  border: 1px solid $border-card;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform $transition-spring, box-shadow $transition-base, border-color $transition-base;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $glow-card-hover;
+    border-color: rgba(139, 92, 246, 0.25);
+
+    .image { transform: scale(1.07); }
+
+    .quickAddBtn {
+      background: $gradient-brand-vivid;
+      color: $text-white;
+      border-color: transparent;
+      box-shadow: $glow-button;
+      transform: scale(1.1);
+    }
+
+    .imageOverlay { opacity: 1; }
+  }
+}
+
+.imageLink {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  background: $bg-float;
+  flex-shrink: 0;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  transition: transform $transition-slow, filter $transition-base;
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 11, 20, 0.3) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity $transition-base;
+}
+
+.saleBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: $gradient-brand-vivid;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  box-shadow: $glow-accent;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  z-index: 2;
+}
+
+.soldOutOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 11, 20, 0.6);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+
+  span {
+    background: rgba(248, 113, 113, 0.15);
+    color: $stock-soldout;
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+  }
+}
+
+.info {
+  padding: 1.25rem 1.25rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.brand {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $primary;
+  margin-bottom: 0.35rem;
+}
+
+.titleLink { display: block; margin-bottom: 0.85rem; }
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $text-primary;
+  line-height: 1.45;
+  height: 2.9em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color $transition-fast;
+
+  &:hover { color: $primary; }
+}
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid $border-subtle;
+}
+
+.priceContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.originalPrice {
+  font-size: 0.75rem;
+  text-decoration: line-through;
+  color: $text-muted;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  @include gradient-text;
+}
+
+.quickAddBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-float;
+  border: 1px solid $border-card;
+  color: $text-secondary;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  transition: all $transition-spring;
+  flex-shrink: 0;
+
+  &:disabled {
+    color: $text-muted;
+    background: $bg-surface;
+    border-color: $border-subtle;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.spinner {
+  animation: rotateSpinner 0.8s linear infinite;
+}

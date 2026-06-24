@@ -1,0 +1,272 @@
+@use '../../styles/variables' as *;
+
+.page {
+  padding-top: 2.5rem;
+  padding-bottom: 5rem;
+}
+
+// ─── Hero Section ───────────────────────────────────────────
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 3rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  // Ambient glow behind the heading
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(139, 92, 246, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    @include gradient-text;
+
+    @include mobile { letter-spacing: -1px; }
+  }
+
+  p {
+    font-size: 1.05rem;
+    color: $text-secondary;
+    max-width: 520px;
+    line-height: 1.65;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(139, 92, 246, 0.12);
+  color: $primary;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  padding: 0.35rem 1rem;
+  border-radius: 30px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.25rem;
+  animation: fadeInUp $transition-slow forwards;
+}
+
+// ─── Filter / Search Bar ────────────────────────────────────
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 2.5rem;
+  background: rgba(15, 19, 32, 0.8);
+  backdrop-filter: $blur-glass;
+  -webkit-backdrop-filter: $blur-glass;
+  border: 1px solid $border-card;
+  border-radius: 20px;
+  box-shadow: $shadow-card;
+
+  @include tablet {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  color: $text-muted;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.7rem 3rem 0.7rem 2.75rem;
+  border-radius: 30px;
+  border: 1px solid $border-card;
+  background: $bg-float;
+  color: $text-primary;
+  font-size: 0.9rem;
+  transition: all $transition-base;
+
+  &::placeholder { color: $text-muted; }
+
+  &:focus {
+    border-color: $primary-vivid;
+    background: rgba(30, 38, 64, 0.9);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18);
+  }
+}
+
+.clearSearch {
+  position: absolute;
+  right: 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: $primary;
+  &:hover { color: $accent; }
+}
+
+.categoriesWrapper {
+  display: flex;
+  overflow: hidden;
+  max-width: 55%;
+  @include tablet { max-width: 100%; }
+}
+
+.categoryScroll {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.categoryTab {
+  white-space: nowrap;
+  padding: 0.5rem 1.1rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $text-secondary;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all $transition-base;
+
+  &:hover {
+    color: $text-primary;
+    background: $bg-float;
+    border-color: $border-card;
+  }
+
+  &.activeTab {
+    background: $gradient-brand-vivid;
+    color: #fff;
+    border-color: transparent;
+    box-shadow: $glow-button;
+  }
+}
+
+// ─── Product Grid ───────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+
+  @include tablet  { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+  @include mobile  { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+
+.gridItem {
+  animation: fadeInUp 0.4s $ease-out both;
+
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) { animation-delay: #{$i * 0.05}s; }
+  }
+}
+
+// ─── Error State ────────────────────────────────────────────
+.errorState {
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  border-radius: 20px;
+  background: rgba(248, 113, 113, 0.04);
+  border: 1px solid rgba(248, 113, 113, 0.12);
+
+  h2 { color: $text-primary; font-size: 1.5rem; font-weight: 700; }
+  p  { color: $text-secondary; font-size: 0.95rem; max-width: 420px; }
+}
+
+.errorIcon { color: $stock-soldout; }
+
+.retryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: $gradient-brand-vivid;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: $glow-button;
+  transition: all $transition-base;
+
+  &:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5); }
+}
+
+// ─── No Results ─────────────────────────────────────────────
+.noResults {
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: 20px;
+  background: $bg-elevated;
+  border: 1px dashed $border-card;
+
+  h3 { font-size: 1.2rem; color: $text-primary; font-weight: 700; margin-bottom: 0.5rem; }
+  p  { font-size: 0.9rem; color: $text-muted; margin-bottom: 1.5rem; }
+}
+
+.resetFiltersBtn {
+  background: transparent;
+  color: $primary;
+  border: 1px solid $border-glow;
+  padding: 0.6rem 1.4rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  transition: all $transition-base;
+
+  &:hover {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: $primary-vivid;
+  }
+}
+
+// ─── Skeleton ───────────────────────────────────────────────
+.skeletonCard {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid $border-card;
+  background: $bg-elevated;
+}
+
+.skeletonImage {
+  height: 240px;
+  width: 100%;
+}
+
+.skeletonInfo { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; gap: 0.75rem; }
+.skeletonBrand  { width: 28%; height: 10px; border-radius: 5px; }
+.skeletonTitle  { width: 85%; height: 14px; border-radius: 5px; }
+.skeletonFooter { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+.skeletonPrice  { width: 38%; height: 18px; border-radius: 5px; }
+.skeletonButton { width: 38px; height: 38px; border-radius: 12px; }

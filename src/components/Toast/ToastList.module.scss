@@ -1,0 +1,84 @@
+@use '../../styles/variables' as *;
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  background: rgba(15, 19, 32, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid $border-card;
+  box-shadow: $shadow-lg;
+  min-width: 280px;
+  max-width: 400px;
+  pointer-events: auto;
+  animation: slideInRight $transition-base forwards;
+  position: relative;
+  overflow: hidden;
+
+  @include mobile { min-width: unset; max-width: 100%; }
+
+  // Left accent bar
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 0 2px 2px 0;
+  }
+
+  &.success {
+    border-left: 1px solid rgba(52, 211, 153, 0.2);
+    &::before { background: $stock-available; box-shadow: 0 0 8px rgba(52, 211, 153, 0.5); }
+    .icon { color: $stock-available; }
+  }
+
+  &.error {
+    border-left: 1px solid rgba(248, 113, 113, 0.2);
+    &::before { background: $stock-soldout; box-shadow: 0 0 8px rgba(248, 113, 113, 0.5); }
+    .icon { color: $stock-soldout; }
+  }
+
+  &.info {
+    border-left: 1px solid rgba(139, 92, 246, 0.2);
+    &::before { background: $primary-vivid; box-shadow: 0 0 8px rgba(139, 92, 246, 0.5); }
+    .icon { color: $primary; }
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.message {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: $text-primary;
+  flex-grow: 1;
+  line-height: 1.45;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-muted;
+  padding: 0.2rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: all $transition-fast;
+  margin-top: 1px;
+
+  &:hover {
+    color: $text-primary;
+    background: $bg-float;
+  }
+}
